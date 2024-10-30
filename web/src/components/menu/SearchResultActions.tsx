@@ -40,7 +40,7 @@ import {
 import { FrigatePlusDialog } from "@/components/overlay/dialog/FrigatePlusDialog";
 import useSWR from "swr";
 import { Event } from "@/types/event";
-
+import { useTranslation } from 'react-i18next';
 type SearchResultActionsProps = {
   searchResult: SearchResult;
   findSimilar: () => void;
@@ -62,20 +62,20 @@ export default function SearchResultActions({
 
   const [showFrigatePlus, setShowFrigatePlus] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-
+  const { t } = useTranslation();
   const handleDelete = () => {
     axios
       .delete(`events/${searchResult.id}`)
       .then((resp) => {
         if (resp.status == 200) {
-          toast.success("Tracked object deleted successfully.", {
+          toast.success(t("Tracked_object_deleted_successfully"), {
             position: "top-center",
           });
           refreshResults();
         }
       })
       .catch(() => {
-        toast.error("Failed to delete tracked object.", {
+        toast.error(t("Failed_to_delete_tracked_object"), {
           position: "top-center",
         });
       });
@@ -93,7 +93,7 @@ export default function SearchResultActions({
             download={`${searchResult.camera}_${searchResult.label}.mp4`}
           >
             <LuDownload className="mr-2 size-4" />
-            <span>Download video</span>
+            <span>{t("Download_video")}</span>
           </a>
         </MenuItem>
       )}
@@ -105,24 +105,24 @@ export default function SearchResultActions({
             download={`${searchResult.camera}_${searchResult.label}.jpg`}
           >
             <LuCamera className="mr-2 size-4" />
-            <span>Download snapshot</span>
+            <span>{t("Download_snapshot")}</span>
           </a>
         </MenuItem>
       )}
       <MenuItem
-        aria-label="Show the object lifecycle"
+        aria-label={t("Show_the_object_lifecycle")}
         onClick={showObjectLifecycle}
       >
         <FaArrowsRotate className="mr-2 size-4" />
-        <span>View object lifecycle</span>
+        <span>{t("View_object_lifecycle")}</span>
       </MenuItem>
       {config?.semantic_search?.enabled && isContextMenu && (
         <MenuItem
-          aria-label="Find similar tracked objects"
+          aria-label={t("Find_similar_tracked_objects")}
           onClick={findSimilar}
         >
           <MdImageSearch className="mr-2 size-4" />
-          <span>Find similar</span>
+          <span>{t("Find_similar")}</span>
         </MenuItem>
       )}
       {isMobileOnly &&
@@ -131,19 +131,19 @@ export default function SearchResultActions({
         searchResult.end_time &&
         !searchResult.plus_id && (
           <MenuItem
-            aria-label="Submit to Frigate Plus"
+            aria-label={t("Submit_to_Frigate_Plus")}
             onClick={() => setShowFrigatePlus(true)}
           >
             <FrigatePlusIcon className="mr-2 size-4 cursor-pointer text-primary" />
-            <span>Submit to Frigate+</span>
+            <span>{t("Submit_to_Frigate_Plus")}</span>
           </MenuItem>
         )}
       <MenuItem
-        aria-label="Delete this tracked object"
+        aria-label={t("Delete_this_tracked_object")}
         onClick={() => setDeleteDialogOpen(true)}
       >
         <LuTrash2 className="mr-2 size-4" />
-        <span>Delete</span>
+        <span>{t("Delete")}</span>
       </MenuItem>
     </>
   );
@@ -156,18 +156,18 @@ export default function SearchResultActions({
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
+            <AlertDialogTitle>{t("Confirm_Delete")}</AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogDescription>
-            Are you sure you want to delete this tracked object?
+            {t("Are_you_sure_you_want_to_delete_this_tracked_object")}
           </AlertDialogDescription>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t("Cancel")}</AlertDialogCancel>
             <AlertDialogAction
               className={buttonVariants({ variant: "destructive" })}
               onClick={handleDelete}
             >
-              Delete
+              {t("Delete")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -197,7 +197,7 @@ export default function SearchResultActions({
                   onClick={findSimilar}
                 />
               </TooltipTrigger>
-              <TooltipContent>Find similar</TooltipContent>
+              <TooltipContent>{t("Find similar")}</TooltipContent>
             </Tooltip>
           )}
 
@@ -213,7 +213,7 @@ export default function SearchResultActions({
                     onClick={() => setShowFrigatePlus(true)}
                   />
                 </TooltipTrigger>
-                <TooltipContent>Submit to Frigate+</TooltipContent>
+                <TooltipContent>{t("Submit_to_Frigate_Plus")}</TooltipContent>
               </Tooltip>
             )}
 

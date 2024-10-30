@@ -21,10 +21,13 @@ import { DialogClose } from "../ui/dialog";
 import { LuLogOut } from "react-icons/lu";
 import useSWR from "swr";
 
+import { useTranslation } from 'react-i18next';
+
 type AccountSettingsProps = {
   className?: string;
 };
 export default function AccountSettings({ className }: AccountSettingsProps) {
+  const { t } = useTranslation();
   const { data: profile } = useSWR("profile");
   const { data: config } = useSWR("config");
   const logoutUrl = config?.proxy?.logout_url || `${baseUrl}api/logout`;
@@ -53,7 +56,7 @@ export default function AccountSettings({ className }: AccountSettingsProps) {
           </TooltipTrigger>
           <TooltipPortal>
             <TooltipContent side="right">
-              <p>Account</p>
+              <p>{t('Account')}</p>
             </TooltipContent>
           </TooltipPortal>
         </Tooltip>
@@ -65,7 +68,7 @@ export default function AccountSettings({ className }: AccountSettingsProps) {
       >
         <div className="scrollbar-container w-full flex-col overflow-y-auto overflow-x-hidden">
           <DropdownMenuLabel>
-            Current User: {profile?.username || "anonymous"}
+            {t('Current User')}: {profile?.username || t("anonymous")}
           </DropdownMenuLabel>
           <DropdownMenuSeparator className={isDesktop ? "mt-3" : "mt-1"} />
           <MenuItem
@@ -76,7 +79,7 @@ export default function AccountSettings({ className }: AccountSettingsProps) {
           >
             <a className="flex" href={logoutUrl}>
               <LuLogOut className="mr-2 size-4" />
-              <span>Logout</span>
+              <span>{t('Logout')}</span>
             </a>
           </MenuItem>
         </div>

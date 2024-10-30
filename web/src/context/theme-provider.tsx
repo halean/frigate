@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-
+import { useTranslation } from 'react-i18next';
 type Theme = "dark" | "light" | "system";
 type ColorScheme =
   | "theme-blue"
@@ -21,12 +21,17 @@ export const colorSchemes: ColorScheme[] = [
 
 // Helper function to generate friendly color scheme names
 // eslint-disable-next-line react-refresh/only-export-components
-export const friendlyColorSchemeName = (className: string): string => {
-  const words = className.split("-").slice(1); // Exclude the first word (e.g., 'theme')
-  return words
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-};
+//export const friendlyColorSchemeName = (className: string): string => {
+//  const words = className.split("-").slice(1); // Exclude the first word (e.g., 'theme')
+//  return words
+//    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+//    .join(" ");
+//};
+
+export function friendlyColorSchemeName(scheme: string) {
+  const { t } = useTranslation();
+  return t(`colorSchemes.${scheme}`);
+}
 
 type ThemeProviderProps = {
   children: React.ReactNode;
