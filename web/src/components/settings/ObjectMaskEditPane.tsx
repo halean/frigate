@@ -38,7 +38,7 @@ import { toast } from "sonner";
 import { Toaster } from "../ui/sonner";
 import ActivityIndicator from "../indicators/activity-indicator";
 import { getAttributeLabels } from "@/utils/iconUtil";
-
+import { useTranslation } from 'react-i18next';
 type ObjectMaskEditPaneProps = {
   polygons?: Polygon[];
   setPolygons: React.Dispatch<React.SetStateAction<Polygon[]>>;
@@ -62,6 +62,8 @@ export default function ObjectMaskEditPane({
   onSave,
   onCancel,
 }: ObjectMaskEditPaneProps) {
+
+  const {t} = useTranslation();
   const { data: config, mutate: updateConfig } =
     useSWR<FrigateConfig>("config");
 
@@ -103,7 +105,7 @@ export default function ObjectMaskEditPane({
       polygon: z.object({ isFinished: z.boolean(), name: z.string() }),
     })
     .refine(() => polygon?.isFinished === true, {
-      message: "The polygon drawing must be finished before saving.",
+      message: t("the_polygon_drawing_must_be_finished_before_saving"),
       path: ["polygon.isFinished"],
     });
 
@@ -191,21 +193,21 @@ export default function ObjectMaskEditPane({
         .then((res) => {
           if (res.status === 200) {
             toast.success(
-              `${polygon.name || "Object Mask"} has been saved. Restart Frigate to apply changes.`,
+              `${polygon.name || t("object_mask")} ${t("has_been_saved_restart_to_apply_changes")}`,
               {
                 position: "top-center",
               },
             );
             updateConfig();
           } else {
-            toast.error(`Failed to save config changes: ${res.statusText}`, {
+            toast.error(`${t("failed_to_save_config_changes")}: ${res.statusText}`, {
               position: "top-center",
             });
           }
         })
         .catch((error) => {
           toast.error(
-            `Failed to save config changes: ${error.response.data.message}`,
+            `${t("failed_to_save_config_changes")}: ${error.response.data.message}`,
             { position: "top-center" },
           );
         })
@@ -236,7 +238,7 @@ export default function ObjectMaskEditPane({
   }
 
   useEffect(() => {
-    document.title = "Edit Object Mask - Frigate";
+    document.title = t("edit_object_mask");// - Frigate";
   }, []);
 
   if (!polygon) {
@@ -251,8 +253,7 @@ export default function ObjectMaskEditPane({
       </Heading>
       <div className="my-2 text-sm text-muted-foreground">
         <p>
-          Object filter masks are used to filter out false positives for a given
-          object type based on location.
+          {t("object_filter_masks_are_used_to_filter_out_false_positives_for_a_given_object_type_based_on_location")}
         </p>
       </div>
       <Separator className="my-3 bg-secondary" />
@@ -309,7 +310,7 @@ export default function ObjectMaskEditPane({
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select an object type" />
+                        <SelectValue placeholder={t("select_an_object_type")} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -317,7 +318,8 @@ export default function ObjectMaskEditPane({
                     </SelectContent>
                   </Select>
                   <FormDescription>
-                    The object type that that applies to this object mask.
+                    {t("the_object_type_that_that_applies_to_this_object_mask")}
+                    
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -337,7 +339,7 @@ export default function ObjectMaskEditPane({
             <div className="flex flex-row gap-2 pt-5">
               <Button
                 className="flex flex-1"
-                aria-label="Cancel"
+                aria-label={t("cancel")}
                 onClick={onCancel}
               >
                 Cancel
@@ -346,16 +348,16 @@ export default function ObjectMaskEditPane({
                 variant="select"
                 disabled={isLoading}
                 className="flex flex-1"
-                aria-label="Save"
+                aria-label={t("save")}
                 type="submit"
               >
                 {isLoading ? (
                   <div className="flex flex-row items-center gap-2">
                     <ActivityIndicator />
-                    <span>Saving...</span>
+                    <span>{t("saving")}</span>
                   </div>
                 ) : (
-                  "Save"
+                  t("save")
                 )}
               </Button>
             </div>

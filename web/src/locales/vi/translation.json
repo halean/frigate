@@ -672,7 +672,10 @@
     "this_value_represents_the_total_storage_used_by_the_recordings_in_frigates_database_frigate_does_not_track_storage_usage_for_all_files_on_your_disk": "Giá trị này đại diện cho tổng dung lượng lưu trữ được sử dụng bởi các bản ghi trong cơ sở dữ liệu của Frigate. Frigate không theo dõi việc sử dụng bộ nhớ cho tất cả các tệp trên ổ đĩa của bạn.",
     "tmpcache": "/tmp/cache",
     "devshm": "/dev/shm",
-    "camera_storage": "Bộ nhớ camera"
+    "camera_storage": "Bộ nhớ camera",
+    "the_polygon_drawing_must_be_finished_before_saving": "Vẽ đa giác phải được hoàn thành trước khi lưu.",
+    "edit_motion_mask": "Chỉnh sửa Mặt nạ Chuyển động",
+    "new_motion_mask": "Mặt nạ Chuyển động Mới"
 }
 
   

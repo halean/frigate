@@ -22,7 +22,7 @@ import { Toaster } from "../ui/sonner";
 import ActivityIndicator from "../indicators/activity-indicator";
 import { Link } from "react-router-dom";
 import { LuExternalLink } from "react-icons/lu";
-
+import { useTranslation } from 'react-i18next';
 type MotionMaskEditPaneProps = {
   polygons?: Polygon[];
   setPolygons: React.Dispatch<React.SetStateAction<Polygon[]>>;
@@ -46,6 +46,7 @@ export default function MotionMaskEditPane({
   onSave,
   onCancel,
 }: MotionMaskEditPaneProps) {
+  const { t } = useTranslation();
   const { data: config, mutate: updateConfig } =
     useSWR<FrigateConfig>("config");
 
@@ -101,7 +102,7 @@ export default function MotionMaskEditPane({
       polygon: z.object({ name: z.string(), isFinished: z.boolean() }),
     })
     .refine(() => polygon?.isFinished === true, {
-      message: "The polygon drawing must be finished before saving.",
+      message: t("the_polygon_drawing_must_be_finished_before_saving"),
       path: ["polygon.isFinished"],
     });
 
@@ -159,7 +160,7 @@ export default function MotionMaskEditPane({
       .then((res) => {
         if (res.status === 200) {
           toast.success(
-            `${polygon.name || "Motion Mask"} has been saved. Restart Frigate to apply changes.`,
+            `${polygon.name || t("motion_mask")} has been saved. Restart Frigate to apply changes.`,
             {
               position: "top-center",
             },
@@ -202,7 +203,7 @@ export default function MotionMaskEditPane({
   }
 
   useEffect(() => {
-    document.title = "Edit Motion Mask - Frigate";
+    document.title = t("edit_motion_mask"); //"Edit Motion Mask - Frigate";
   }, []);
 
   if (!polygon) {
@@ -213,14 +214,12 @@ export default function MotionMaskEditPane({
     <>
       <Toaster position="top-center" closeButton={true} />
       <Heading as="h3" className="my-2">
-        {polygon.name.length ? "Edit" : "New"} Motion Mask
+        {polygon.name.length ? t("edit_motion_mask") : t("new_motion_mask")}
       </Heading>
       <div className="my-3 space-y-3 text-sm text-muted-foreground">
         <p>
-          Motion masks are used to prevent unwanted types of motion from
-          triggering detection (example: tree branches, camera timestamps).
-          Motion masks should be used <em>very sparingly</em>, over-masking will
-          make it more difficult for objects to be tracked.
+        {t("motion_masks_are_used_to_prevent_unwanted_types_of_motion_from_triggering_detection_example_tree_branches_camera_timestamps_motion_masks_should_be_used")}
+          <em> {t("very_sparingly")}</em> {t("_overmasking_will_make_it_more_difficult_for_objects_to_be_tracked")}
         </p>
 
         <div className="flex items-center text-primary">
@@ -230,7 +229,7 @@ export default function MotionMaskEditPane({
             rel="noopener noreferrer"
             className="inline"
           >
-            Read the documentation{" "}
+            {t("read_the_documentation_1")}{" "}
             <LuExternalLink className="ml-2 inline-flex size-3" />
           </Link>
         </div>
@@ -256,7 +255,7 @@ export default function MotionMaskEditPane({
         </div>
       )}
       <div className="mb-3 text-sm text-muted-foreground">
-        Click to draw a polygon on the image.
+        {t("click_to_draw_a_polygon_on_the_image")}
       </div>
 
       <Separator className="my-3 bg-secondary" />
@@ -264,12 +263,11 @@ export default function MotionMaskEditPane({
       {polygonArea && polygonArea >= 0.35 && (
         <>
           <div className="mb-3 text-sm text-danger">
-            The motion mask is covering {Math.round(polygonArea * 100)}% of the
-            camera frame. Large motion masks are not recommended.
+          {t("the_motion_mask_is_covering")} {Math.round(polygonArea * 100)}{t("_of_the_camera_frame_large_motion_masks_are_not_recommended")}
           </div>
           <div className="mb-3 text-sm text-primary">
-            Motion masks do not prevent objects from being detected. You should
-            use a required zone instead.
+            {t("motion_masks_do_not_prevent_objects_from_being_detected_you_should_use_a_required_zone_instead")}
+            
             <Link
               to="https://github.com/blakeblackshear/frigate/discussions/13040"
               target="_blank"
@@ -310,10 +308,10 @@ export default function MotionMaskEditPane({
             <div className="flex flex-row gap-2 pt-5">
               <Button
                 className="flex flex-1"
-                aria-label="Cancel"
+                aria-label={t("cancel")}
                 onClick={onCancel}
               >
-                Cancel
+                {t("cancel")}
               </Button>
               <Button
                 variant="select"
@@ -328,7 +326,7 @@ export default function MotionMaskEditPane({
                     <span>Saving...</span>
                   </div>
                 ) : (
-                  "Save"
+                  t("save_4")
                 )}
               </Button>
             </div>
