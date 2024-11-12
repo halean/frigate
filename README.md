@@ -48,3 +48,7 @@ If you would like to make a donation to support development, please use [Github 
 <div>
 <img width="800" alt="Multi-camera scrubbing" src="https://github.com/blakeblackshear/frigate/assets/569905/d7885fc3-bfe6-452f-b7d0-d957cb3e31f5">
 </div>
+
+
+An's build:
+docker buildx bake --file=docker/tensorrt/trt.hcl tensorrt

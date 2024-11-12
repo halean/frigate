@@ -680,4 +680,11 @@
     "has_been_saved_restart_to_apply_changes": "has been saved. Restart to apply changes",
     "failed_to_save_config_changes": "Failed to save config changes",
     "select_an_object_type": "Select an object type",
+    "exit_editing": "Exit Editing",
+    "your_review_item_video_has_started_downloading": "Your review item video has started downloading.",
+    "hide": "Hide",
+    "show": "Show",
+    "successfully_started_export_view_the_file_in_the_exports_folder": "Successfully started export. View the file in the /exports folder.",
+    "failed_to_start_export": "Failed to start export",
+    "delete_now": "Delete Now"
 }

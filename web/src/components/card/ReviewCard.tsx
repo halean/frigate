@@ -50,15 +50,15 @@ export default function ReviewCard({ event, currentTime, onClick, }: ReviewCardP
             .post(`export/${event.camera}/start/${event.start_time + REVIEW_PADDING}/end/${endTime}`, { playback: "realtime" })
             .then((response) => {
             if (response.status == 200) {
-                toast.success("Successfully started export. View the file in the /exports folder.", { position: "top-center" });
+                toast.success(t("successfully_started_export_view_the_file_in_the_exports_folder"), { position: "top-center" });
             }
         })
             .catch((error) => {
             if (error.response?.data?.message) {
-                toast.error(`Failed to start export: ${error.response.data.message}`, { position: "top-center" });
+                toast.error(`${t("failed_to_start_export")} ${error.response.data.message}`, { position: "top-center" });
             }
             else {
-                toast.error(`Failed to start export: ${error.message}`, {
+                toast.error(`${t("failed_to_start_export")}: ${error.message}`, {
                     position: "top-center",
                 });
             }
@@ -166,7 +166,7 @@ export default function ReviewCard({ event, currentTime, onClick, }: ReviewCardP
               <div className="flex w-full cursor-pointer items-center justify-start gap-2 p-2" onClick={handleDelete}>
                 <HiTrash className="text-secondary-foreground"/>
                 <div className="text-primary">
-                  {bypassDialogRef.current ? "Delete Now" : "Delete"}
+                  {bypassDialogRef.current ? t("delete_now") : t("delete")}
                 </div>
               </div>
             </ContextMenuItem>
@@ -202,7 +202,7 @@ export default function ReviewCard({ event, currentTime, onClick, }: ReviewCardP
           <div className="flex w-full items-center justify-start gap-2 p-2" onClick={handleDelete}>
             <HiTrash className="text-secondary-foreground"/>
             <div className="text-primary">
-              {bypassDialogRef.current ? "Delete Now" : "Delete"}
+              {bypassDialogRef.current ? t("delete_now") : t("delete")}
             </div>
           </div>
         </DrawerContent>

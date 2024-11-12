@@ -68,7 +68,7 @@ export default function ExportCard({ className, exportedRecording, onSelect, onR
                 update: e.target.value,
             })}/>
               <DialogFooter>
-                <Button aria-label="Save Export" size="sm" variant="select" disabled={(editName?.update?.length ?? 0) == 0} onClick={() => submitRename()}>{t("save")}</Button>
+                <Button aria-label={'"'+t("save_export")+'"'} size="sm" variant="select" disabled={(editName?.update?.length ?? 0) == 0} onClick={() => submitRename()}>{t("save")}</Button>
               </DialogFooter>
             </>)}
         </DialogContent>

@@ -5,7 +5,7 @@ import ActivityIndicator from "../indicators/activity-indicator";
 import { FaDownload } from "react-icons/fa";
 import { formatUnixTimestampToDateTime } from "@/utils/dateUtil";
 import { cn } from "@/lib/utils";
-
+import { useTranslation } from 'react-i18next';
 type DownloadVideoButtonProps = {
   source: string;
   camera: string;
@@ -19,6 +19,7 @@ export function DownloadVideoButton({
   startTime,
   className,
 }: DownloadVideoButtonProps) {
+  const { t } = useTranslation();
   const [isDownloading, setIsDownloading] = useState(false);
 
   const formattedDate = formatUnixTimestampToDateTime(startTime, {
@@ -30,7 +31,7 @@ export function DownloadVideoButton({
 
   const handleDownloadStart = () => {
     setIsDownloading(true);
-    toast.success("Your review item video has started downloading.", {
+    toast.success(t("your_review_item_video_has_started_downloading"), {
       position: "top-center",
     });
   };
@@ -42,7 +43,7 @@ export function DownloadVideoButton({
         disabled={isDownloading}
         className="flex items-center gap-2"
         size="sm"
-        aria-label="Download Video"
+        aria-label={t("download_video")}
       >
         <a href={source} download={filename} onClick={handleDownloadStart}>
           {isDownloading ? (

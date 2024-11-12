@@ -675,7 +675,18 @@
     "camera_storage": "Bộ nhớ camera",
     "the_polygon_drawing_must_be_finished_before_saving": "Vẽ đa giác phải được hoàn thành trước khi lưu.",
     "edit_motion_mask": "Chỉnh sửa Mặt nạ Chuyển động",
-    "new_motion_mask": "Mặt nạ Chuyển động Mới"
+    "new_motion_mask": "Mặt nạ Chuyển động Mới",
+    "has_been_saved_restart_to_apply_changes": "đã được lưu. Khởi động lại để áp dụng thay đổi",
+    "failed_to_save_config_changes": "Không thể lưu thay đổi cấu hình",
+    "select_an_object_type": "Chọn một loại đối tượng",
+    "exit_editing": "Thoát chỉnh sửa",
+    "your_review_item_video_has_started_downloading": "Video duyệt lại của bạn đang được tải xuống.",  
+    "hide": "Ẩn",
+    "show": "Hiện",
+    "successfully_started_export_view_the_file_in_the_exports_folder": "Xuất dữ liệu đã được bắt đầu thành công. Xem file trong thư mục /exports.",
+    "failed_to_start_export": "Không thể bắt đầu xuất dữ liệu",
+    "delete_now": "Xóa ngay"
+
 }
 
   

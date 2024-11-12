@@ -13,18 +13,16 @@ COPY docker/tensorrt/requirements-amd64.txt /requirements-tensorrt.txt
 RUN mkdir -p /trt-wheels && pip3 wheel --wheel-dir=/trt-wheels -r /requirements-tensorrt.txt
 
 # Build CuDNN
-FROM wget AS cudnn-deps
-
-ARG COMPUTE_LEVEL
-
+FROM ubuntu:20.04 AS cudnn-deps
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
-    && apt-get install -y git build-essential
+    && apt-get install -y git build-essential wget
 
-RUN wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.1-1_all.deb \
-&& dpkg -i cuda-keyring_1.1-1_all.deb \
-&& apt-get update \
-&& apt-get -y install cuda-toolkit \
-&& rm -rf /var/lib/apt/lists/*
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/debian11/x86_64/cuda-keyring_1.1-1_all.deb
+RUN dpkg -i cuda-keyring_1.1-1_all.deb 
+RUN apt-get update
+RUN apt-get -y install cuda-toolkit
+RUN rm -rf /var/lib/apt/lists/*
 
 FROM tensorrt-base AS frigate-tensorrt
 ENV TRT_VER=8.5.3

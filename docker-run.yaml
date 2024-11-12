@@ -4,7 +4,8 @@ services:
     container_name: frigate
     privileged: true # this may not be necessary for all setups
     restart: unless-stopped
-    image: frigate-devcontainer
+    image: frigate-tensorrt
+    runtime: nvidia
     shm_size: "64mb" # update for your cameras based on calculation above
     devices:
       - /dev/bus/usb:/dev/bus/usb # Passes the USB Coral, needs to be modified for other versions
@@ -13,8 +14,8 @@ services:
       - /dev/dri/renderD128:/dev/dri/renderD128 # For intel hwaccel, needs to be updated for your hardware
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /media/halean/553108AF1CE97557/frigate_mount/config:/config
-      - /media/halean/553108AF1CE97557/frigate_mount/storage:/media/frigate
+      - /opt/dlami/nvme/frigate_mount/config:/config
+      - /opt/dlami/nvme/frigate_mount/storage:/media/frigate
       - /dev/bus/usb:/dev/bus/usb
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache

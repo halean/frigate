@@ -7,7 +7,7 @@ import { useCallback, useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { usePersistence } from "@/hooks/use-persistence";
 import AutoUpdatingCameraImage from "./AutoUpdatingCameraImage";
-
+import { useTranslation } from 'react-i18next';
 type Options = { [key: string]: boolean };
 
 const emptyObject = Object.freeze({});
@@ -33,6 +33,7 @@ export default function DebugCameraImage({
     },
     [options, setOptions],
   );
+  const { t } = useTranslation();
   const searchParams = useMemo(
     () =>
       new URLSearchParams(
@@ -59,12 +60,12 @@ export default function DebugCameraImage({
         onClick={handleToggleSettings}
         variant="link"
         size="sm"
-        aria-label="Settings"
+        aria-label={t("settings");}
       >
         <span className="h-5 w-5">
           <LuSettings />
         </span>{" "}
-        <span>{showSettings ? "Hide" : "Show"} Options</span>
+        <span>{showSettings ? t("hide") : t("show")} {t("options")}</span>
       </Button>
       {showSettings ? (
         <Card>
@@ -89,6 +90,7 @@ type DebugSettingsProps = {
 };
 
 function DebugSettings({ handleSetOption, options }: DebugSettingsProps) {
+  const { t } = useTranslation();
   return (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
       <div className="flex items-center space-x-2">
@@ -109,7 +111,7 @@ function DebugSettings({ handleSetOption, options }: DebugSettingsProps) {
             handleSetOption("timestamp", isChecked);
           }}
         />
-        <Label htmlFor="timestamp">Timestamp</Label>
+        <Label htmlFor="timestamp">{t("timestamp")}</Label>
       </div>
       <div className="flex items-center space-x-2">
         <Switch
@@ -119,7 +121,7 @@ function DebugSettings({ handleSetOption, options }: DebugSettingsProps) {
             handleSetOption("zones", isChecked);
           }}
         />
-        <Label htmlFor="zones">Zones</Label>
+        <Label htmlFor="zones">{t("zones")}</Label>
       </div>
       <div className="flex items-center space-x-2">
         <Switch
@@ -129,7 +131,7 @@ function DebugSettings({ handleSetOption, options }: DebugSettingsProps) {
             handleSetOption("mask", isChecked);
           }}
         />
-        <Label htmlFor="mask">Mask</Label>
+        <Label htmlFor="mask">{t("mask")}</Label>
       </div>
       <div className="flex items-center space-x-2">
         <Switch
@@ -139,7 +141,7 @@ function DebugSettings({ handleSetOption, options }: DebugSettingsProps) {
             handleSetOption("motion", isChecked);
           }}
         />
-        <Label htmlFor="motion">Motion</Label>
+        <Label htmlFor="motion">{t("motion")}</Label>
       </div>
       <div className="flex items-center space-x-2">
         <Switch
@@ -149,7 +151,7 @@ function DebugSettings({ handleSetOption, options }: DebugSettingsProps) {
             handleSetOption("regions", isChecked);
           }}
         />
-        <Label htmlFor="regions">Regions</Label>
+        <Label htmlFor="regions">{t("regions")}</Label>
       </div>
     </div>
   );

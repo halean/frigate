@@ -4,6 +4,7 @@ import useSWR from "swr";
 import ActivityIndicator from "../indicators/activity-indicator";
 import { useResizeObserver } from "@/hooks/resize-observer";
 import { cn } from "@/lib/utils";
+import { useTranslation } from 'react-i18next';
 
 type CameraImageProps = {
   className?: string;
@@ -29,7 +30,7 @@ export default function CameraImage({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [{ width: containerWidth, height: containerHeight }] =
     useResizeObserver(containerRef);
-
+  const { t } = useTranslation();
   // Add scrollbar width (when visible) to the available observer width to eliminate screen juddering.
   // https://github.com/blakeblackshear/frigate/issues/1657
   let scrollBarWidth = 0;
@@ -109,7 +110,7 @@ export default function CameraImage({
         />
       ) : (
         <div className="pt-6 text-center">
-          Camera is disabled in config, no stream or snapshot available!
+          {t("camera_is_disabled_in_config_no_stream_or_snapshot_available")}
         </div>
       )}
       {!hasLoaded && enabled ? (
